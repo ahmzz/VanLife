@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useSearchParams } from "react-router-dom";
 import Loading from "./Loading";
-
 
 const Vans = () => {
   const [vans, setVans] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchParams,setSearchParams]=useSearchParams()
+  const typeFilter=searchParams.get('type')
+
+  const typeFilterDisplayed=typeFilter
+  ? vans.filter(van=>van.type==typeFilter)
+  : vans
 
   useEffect(() => {
     fetch("/api/vans")
