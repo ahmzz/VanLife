@@ -24,7 +24,7 @@ const Vans = () => {
 
   const vanElements = typeFilterDisplayed.map((van) => (
     <div key={van.id} className="van-tile">
-      <Link to={`/vans/${van.id}`}>
+      <Link to={van.id}>
         <img src={van.imageUrl} />
         <div className="van-info">
           <h3>{van.name}</h3>
@@ -48,7 +48,7 @@ const Vans = () => {
       params.set(key,value)
     }
     console.log(params.toString())
-    return `?${params}`
+    return `?${params.toString()}`
 
   }
 
@@ -59,7 +59,8 @@ const Vans = () => {
         <Link to={searchParamString('type','simple')} className="van-type simple">Simple</Link>
         <Link to={searchParamString('type','rugged')} className="van-type rugged">Rugged</Link>
         <Link to={searchParamString('type','luxury')} className="van-type luxury">Luxury</Link>
-        <Link to={searchParamString('type', null)} className="van-type clear-filters">Clear filters</Link>
+        {typeFilter?<Link to={searchParamString('type', null)} className="van-type clear-filters">Clear filters</Link>:null}
+        
        
       </div>
       {loading?<div className="van-list">{vanElements}</div>:<Loading/>}
