@@ -38,14 +38,28 @@ const Vans = () => {
     </div>
   ));
 
+
+  const searchParamString=(key,value)=>{
+    const params=new URLSearchParams(searchParams)
+
+    if(value===null){
+      params.delete(key)
+    }else{
+      params.set(key,value)
+    }
+    console.log(params.toString())
+    return `?${params}`
+
+  }
+
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
       <div className="van-list-filter-buttons">
-        <Link to='?type=simple' className="van-type simple">Simple</Link>
-        <Link to='?type=rugged' className="van-type rugged">Rugged</Link>
-        <Link to='?type=luxury' className="van-type luxury">Luxury</Link>
-        <Link to='.' className="van-type clear-filters">Clear filters</Link>
+        <Link to={searchParamString('type','simple')} className="van-type simple">Simple</Link>
+        <Link to={searchParamString('type','rugged')} className="van-type rugged">Rugged</Link>
+        <Link to={searchParamString('type','luxury')} className="van-type luxury">Luxury</Link>
+        <Link to={searchParamString('type', null)} className="van-type clear-filters">Clear filters</Link>
        
       </div>
       {loading?<div className="van-list">{vanElements}</div>:<Loading/>}
